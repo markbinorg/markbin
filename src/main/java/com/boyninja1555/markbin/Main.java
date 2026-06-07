@@ -10,7 +10,7 @@ import java.nio.file.Path;
 public class Main {
     static void main(String[] args) {
         if (args.length != 2) {
-            System.err.println("Usage: mkb <file.mkb> <output>");
+            System.err.println("Usage: markbin <file.mkb> <output>");
             System.exit(1);
             return;
         }
