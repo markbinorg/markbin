@@ -28,6 +28,7 @@ public class Main {
             if (!Files.exists(outpath)) Files.createFile(outpath);
             try (var out = new FileOutputStream(outpath.toFile())) {
                 out.write(file.asBytes());
+                System.out.println("Done! You can find the final binary at " + outpath);
             } catch (MkbParseException | IOException ex) {
                 System.err.println(ex.getMessage());
                 System.exit(1);

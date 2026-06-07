@@ -1,7 +1,6 @@
 package com.boyninja1555.markbin;
 
 import com.boyninja1555.markbin.lexer.MkbLexer;
-import com.boyninja1555.markbin.lexer.MkbToken;
 import com.boyninja1555.markbin.parser.MkbParseException;
 import com.boyninja1555.markbin.parser.MkbParser;
 import org.jetbrains.annotations.NotNull;
@@ -30,9 +29,9 @@ public class MarkbinFile {
 
     public byte[] asBytes() throws MkbParseException {
         lexer.tokenize();
-        for (MkbToken token : lexer.tokens()) {
-            System.out.println("Token:\n\tType: " + token.type() + "\n\tValue: " + token.value());
-        }
+        // for (MkbToken token : lexer.tokens()) {
+        //     System.out.println("Token:\n\tType: " + token.type() + "\n\tValue: " + token.value());
+        // }
 
         MkbParser parser = new MkbParser(lexer.tokens());
         return parser.parse();

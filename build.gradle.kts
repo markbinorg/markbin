@@ -1,7 +1,12 @@
 plugins {
     id("java")
     id("application")
-    kotlin("jvm")
+    id("org.graalvm.buildtools.native") version "1.1.1"
+}
+
+java.toolchain {
+    languageVersion.set(JavaLanguageVersion.of(25))
+    vendor.set(JvmVendorSpec.GRAAL_VM)
 }
 
 group = "com.boyninja1555"
@@ -13,12 +18,8 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains:annotations:26.1.0")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 application {
-    mainClass = "${group}.markbin.Main"
-}
-kotlin {
-    jvmToolchain(25)
+    mainClass.set("${group}.markbin.Main")
 }
