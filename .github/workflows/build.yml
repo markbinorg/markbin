@@ -12,24 +12,26 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
-      -   uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      -   name: Setup GraalVM
-          uses: graalvm/setup-graalvm@v1
-          with:
-            java-version: "25"
-            distribution: "graalvm"
+      - name: Setup GraalVM
+        uses: graalvm/setup-graalvm@v1
+        with:
+          java-version: "25"
+          distribution: "graalvm"
 
-      -   name: Build native binary
-          run: ./gradlew nativeCompile
+      - name: Build binary
+        run: ./gradlew nativeCompile
 
-      -   name: Rename binary
-          shell: bash
-          run: |
-            mkdir dist
-            cp build/native/nativeCompile/* dist/markbin-${{ matrix.os }}
+      - name: Rename binary
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp build/native/nativeCompile/* dist/
 
-      -   name: Upload!
-          uses: softprops/action-gh-release@v2
-          with:
-            files: dist/*
+      - name: "Upload!"
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: dist/*
