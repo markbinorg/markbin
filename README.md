@@ -9,6 +9,7 @@ Along with bits are special flags, useful if you don't plan to have unreadable s
 | Label     | Description                                                   |
 |-----------|---------------------------------------------------------------|
 | `<bits>`  | Enabled by default, this flag switches the data mode to bits! |
+| `<hex>`   | Switches the data mode to hex form!                           |
 | `<utf8>`  | Encodes the following data as UTF-8 bytes.                    |
 | `<utf16>` | Encodes the following data as UTF-16 bytes.                   |
 
