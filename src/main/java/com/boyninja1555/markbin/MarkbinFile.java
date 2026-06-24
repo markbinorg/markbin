@@ -29,7 +29,7 @@ public class MarkbinFile {
 
     public byte[] asBytes() throws MkbParseException {
         lexer.tokenize();
-        // for (MkbToken token : lexer.tokens()) {
+        // for (com.boyninja1555.markbin.lexer.MkbToken token : lexer.tokens()) {
         //     System.out.println("Token:\n\tType: " + token.type() + "\n\tValue: " + token.value());
         // }
 

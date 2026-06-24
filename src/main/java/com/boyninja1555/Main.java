@@ -1,5 +1,6 @@
-package com.boyninja1555.markbin;
+package com.boyninja1555;
 
+import com.boyninja1555.markbin.MarkbinFile;
 import com.boyninja1555.markbin.parser.MkbParseException;
 
 import java.io.FileOutputStream;

@@ -1,7 +1,6 @@
 plugins {
-    id("java")
-    id("application")
-    id("org.graalvm.buildtools.native") version "1.1.1"
+    java
+    id("org.graalvm.buildtools.native") version "1.1.2"
 }
 
 java.toolchain {
@@ -10,16 +9,23 @@ java.toolchain {
 }
 
 group = "com.boyninja1555"
-version = "1"
+version = "2"
+val entry = "${group}.Main"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation("org.jetbrains:annotations:26.1.0")
+    compileOnly("org.jetbrains:annotations:26.1.0")
 }
 
-application {
-    mainClass.set("${group}.markbin.Main")
+tasks.jar {
+    manifest.attributes["Main-Class"] = entry
+}
+
+graalvmNative.binaries.named("main") {
+    mainClass.set(entry)
+    runtimeArgs.add("examples/hello.mkb")
+    runtimeArgs.add("examples/hello.bin")
 }

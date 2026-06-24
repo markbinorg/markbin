@@ -3,6 +3,7 @@ package com.boyninja1555.markbin.parser;
 import com.boyninja1555.markbin.lexer.MkbToken;
 import com.boyninja1555.markbin.lexer.MkbTokenType;
 import com.boyninja1555.markbin.lib.Utils;
+import com.boyninja1555.markbin.lib.WarningLogger;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.charset.Charset;
@@ -18,7 +19,31 @@ public class MkbParser {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < literal.length(); i++) {
                     char c = literal.charAt(i);
-                    if (c == '0' || c == '1') sb.append(c);
+                    if (c == '0' || c == '1') {
+                        sb.append(c);
+                        continue;
+                    }
+
+                    WarningLogger.log("Located invalid value inside a <bits> block, skipping it.");
+                }
+
+                return sb.toString();
+            }
+        },
+
+        HEX {
+            @Override
+            public @NotNull String encode(@NotNull String literal) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < literal.length(); i++) {
+                    char c = literal.charAt(i);
+                    int value = Character.digit(c, 16);
+                    if (value == -1) {
+                        WarningLogger.log("Located invalid value inside a <hex> block, skipping it.");
+                        continue;
+                    }
+
+                    sb.append(String.format("%4s", Integer.toBinaryString(value)).replace(' ', '0'));
                 }
 
                 return sb.toString();
@@ -58,13 +83,13 @@ public class MkbParser {
 
     public MkbParser(@NotNull List<MkbToken> tokens) {
         this.tokens = tokens;
-        lpMode = LiteralParseMode.BITS;
         position = 0;
     }
 
     private void handleFlag(@NotNull String flag) {
         lpMode = switch (flag) {
             case "bits" -> LiteralParseMode.BITS;
+            case "hex" -> LiteralParseMode.HEX;
             case "utf8" -> LiteralParseMode.UTF8;
             case "utf16" -> LiteralParseMode.UTF16;
             default -> lpMode;
@@ -72,6 +97,7 @@ public class MkbParser {
     }
 
     public byte[] parse() throws MkbParseException {
+        lpMode = LiteralParseMode.BITS;
         StringBuilder bits = new StringBuilder();
         while (position < tokens.size()) {
             MkbToken token = tokens.get(position);

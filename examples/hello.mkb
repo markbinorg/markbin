@@ -1,2 +1,5 @@
-<utf8>"The following was typed with manual bits: "<bits> ; Switches to UTF-8 and back for automatic text encoding
-01010101                                                 ; UTF-8 for "U"
+<utf8>"The following was typed with manual bits: "<bits>               ; Switches to UTF-8 and back for automatic text encoding
+01010101                                                               ; UTF-8 for "U"
+<utf8>"\nEver wanted to see a double right arrow, typed in hex? "<hex>
+af                                                                     ; No clue what encoding that is lmao
+<utf8>"\nYeah I can't confirm that always works, but it works for me!"
