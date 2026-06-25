@@ -47,7 +47,13 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist
-          cp build/native/nativeCompile/* dist/
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            cp build/native/nativeCompile/* dist/markbin
+          elif [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            cp build/native/nativeCompile/* dist/markbinmac
+          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            cp build/native/nativeCompile/* dist/markbin.exe
+          fi
 
       - name: "Upload!"
         uses: softprops/action-gh-release@v2
