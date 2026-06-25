@@ -9,6 +9,9 @@ on:
         required: true
         default: "main"
         description: "Branch to do shit on"
+      tag:
+        required: true
+        description: "Release tag"
 
 jobs:
   build:
@@ -48,4 +51,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: ${{ github.event.inputs.tag || github.event.release.tag_name }}
           files: dist/*
